@@ -26,14 +26,16 @@
       width: 200px;
       top: 10px;
       right: 10px;
+      width: 25rem;
+
       padding: 10px;
-      width: 25%;
     }
 
-    .map-overlay .map-overlay-inner {
+    .map-overlay-inner {
       background-color: #fff;
       box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
       border-radius: 3px;
+      padding: 10px;
     }
   </style>
 </head>
@@ -42,149 +44,45 @@
 
   <div id='map' style='width: 100%; height: 100%;'></div>
   <div class="map-overlay">
-    <div class="map-overlay-inner accordion" id="accordionMapData">
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingOne">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-            aria-expanded="true" aria-controls="collapseOne">
-            Map 1 - Priority Deferrals
-          </button>
-        </h2>
-        <div class="accordion-collapse collapse show" id="collapseOne" aria-labelledby="headingOne"
-          data-bs-parent="#accordionMapData" data-layer-name="map-1-priority-deferrals">
-          <div class="accordion-body">
-            <strong>This map shows an overall picture of the panel’s priority recommendations for harvest
-              deferral.</strong>
-            It is a combination of:
-            <ul>
-              <li>Prioritized old growth with large trees (Map 3)</li>
-              <li>Areas mapped as ancient forest (Map 4)</li>
-              <li>Remnant old ecosystems (Map 5)</li>
-            </ul>
-          </div>
+    <div class="map-overlay-inner card">
+      <fieldset>
+        <label for="map" class="form-label strong">Currently showing:</label>
+        <select name="map" class="form-select" id="mapSelector">
+          <option selected value="map-1-priority-deferrals">Map 1: Priority Deferrals</option>
+          <option value="map-2-big-tree-og">Map 2: Big-treed Old Growth</option>
+          <option value="map-3-priority-big-tree-og">Map 3: Prioritised Big-treed Old Growth</option>
+          <option value="map-4-ancient-forest">Map 4: Ancient Forest</option>
+          <option value="map-5-remnant-ecosystems">Map 5: Remnant Ecosystems</option>
+          <option value="map-6-intact-watersheds">Map 6: Intact Watersheds</option>
+          <option value="map-7-recruitment-forest">Map 7: Recruitment Forest</option>
+        </select>
+        <div id="zoomHelpText" class="alert alert-primary d-flex align-items-center mb-0 mt-2"
+          style="display:none !important;" role="alert">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor"
+            class="bi bi-exclamation-triangle-fill flex-shrink-0 me-2" viewBox="0 0 16 16" role="img"
+            aria-label="Warning:">
+            <path
+              d="M8.982 1.566a1.13 1.13 0 0 0-1.96 0L.165 13.233c-.457.778.091 1.767.98 1.767h13.713c.889 0 1.438-.99.98-1.767L8.982 1.566zM8 5c.535 0 .954.462.9.995l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 5.995A.905.905 0 0 1 8 5zm.002 6a1 1 0 1 1 0 2 1 1 0 0 1 0-2z" />
+          </svg>
+          <span>You must zoom in more to see this layer</span>
         </div>
+      </fieldset>
+      <hr />
+
+      <div id="mapDescription">
+        <p><strong>This map shows an overall picture of the panel’s priority recommendations for harvest
+            deferral.</strong></p>
+        It is a combination of: <ul>
+          <li>Prioritized old growth with large trees (Map 3)</li>
+          <li>Areas mapped as ancient forest (Map 4)</li>
+          <li>Remnant old ecosystems (Map 5)</li>
+        </ul>
       </div>
-
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingTwo">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
-            Map 2 - Big Tree Old Growth
-          </button>
-        </h2>
-        <div class="accordion-collapse collapse" id="collapseTwo" aria-labelledby="headingTwo"
-          data-bs-parent="#accordionMapData" data-layer-name="map-2-big-tree-og">
-          <div class="accordion-body">
-            <strong>This map shows the remaining old forest with the largest trees in each ecosystem</strong>
-            <p>
-              Within each BEC subzone/variant, select stands with the largest trees until area selected reaches the
-              greater of either 10% of the total FALB area or 30% of the area of old forest that is naturally expected.
-            </p>
-            <p>
-              Stands comprised of old forest were prioritized. If a BEC subzone/variant did not contain enough old
-              forest to meet the 10%/30% area goal, then stands with the largest trees in the “older mature”2 were
-              selected.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingThree">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseThree"
-            aria-expanded="true" aria-controls="collapseThree">
-            Map 3 - Prioritised Big-treed Old Growth
-          </button>
-        </h2>
-        <div class="accordion-collapse collapse" id="collapseThree" aria-labelledby="headingThree"
-          data-bs-parent="#accordionMapData" data-layer-name="map-3-priority-big-tree-og">
-          <div class="accordion-body">
-            <strong>This map is a subset of Map 2, showing the highest priority big-treed old growth</strong>
-            <p>
-              Targets for each ecosystem were varied based on finer-scaled ecological risk. Whereas Map 2 shows the
-              biggest 10% or 30% of expected amount of old for all ecosystems, this map shows the biggest 3 or 5%
-              forests in ecosystems at lower risk, and 7%, 10% or 30% of expected for in ecosystems at higher risk.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingFour">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFour"
-            aria-expanded="true" aria-controls="collapseFour">
-            Map 4 - Ancient Forest
-          </button>
-        </h2>
-        <div class="accordion-collapse collapse" id="collapseFour" aria-labelledby="headingFour"
-          data-bs-parent="#accordionMapData" data-layer-name="map-4-ancient-forest">
-          <div class="accordion-body">
-            <strong>This map shows the forests described in provincial forest inventory data as ancient</strong>
-            <p>
-              Ancient forests were defined using Structural Stage 7b (“very old”) from Land Management Handbook
-              25 (Province of British Columbia 2010), where ancient is >400 in NDT 1, 2, 4 and >250 in NDT3.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingFive">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseFive"
-            aria-expanded="true" aria-controls="collapseFive">
-            Map 5 - Remnant Ecosystems
-          </button>
-        </h2>
-        <div class="accordion-collapse collapse" id="collapseFive" aria-labelledby="headingFive"
-          data-bs-parent="#accordionMapData" data-layer-name="map-5-remnant-ecosystems">
-          <div class="accordion-body">
-            <strong>This map shows old forest remaining in ecosystems where less than 10% of the total productive
-              forested area is mapped as old today</strong>
-            <p>
-              Remnant forest maps include all polygons that were mapped as old in VRI and were within a BEC
-              subzone/variant or a BEC subzone/variant within a Landscape Unit where old forests comprised < 10% of the
-                productive forest area.3 </p>
-          </div>
-        </div>
-      </div>
-
-
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingSix">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSix"
-            aria-expanded="true" aria-controls="collapseSix">
-            Map 6 - Intact Watersheds
-          </button>
-        </h2>
-        <div class="accordion-collapse collapse" id="collapseSix" aria-labelledby="headingSix"
-          data-bs-parent="#accordionMapData" data-layer-name="map-6-intact-watersheds">
-          <div class="accordion-body">
-            <p>The Intact Watersheds map show the watersheds where >70% of the forest has not been disturbed by
-              forest harvesting or roads. Watersheds were further stratified into either >70%, >80%, or >90%
-              intactness.</p>
-          </div>
-        </div>
-      </div>
-
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingSeven">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSeven"
-            aria-expanded="true" aria-controls="collapseSeven">
-            Map 7 - Recruitment Forest
-          </button>
-        </h2>
-        <div class="accordion-collapse collapse" id="collapseSeven" aria-labelledby="headingSeven"
-          data-bs-parent="#accordionMapData" data-layer-name="map-7-recruitment-forest">
-          <div class="accordion-body">
-            <p>Recruitment Forest represent supplemental areas to “Map 1: Old Growth with Large Trees”. If a BEC
-              subzone/variant did not contain enough area of old or “older mature” forest to meet the 10%/30% area
-              goal, then stands with the largest trees in younger forest were selected as potential “recruitment” areas.
-            </p>
-          </div>
-        </div>
-      </div>
-
-      <!-- TODO: get the 8th map up on Mapbox tilesets
+      <hr />
+      <button class="btn btn-primary btn-small info" data-bs-toggle="modal" data-bs-target="#infoModal">About this
+        map</button>
+    </div>
+    <!-- TODO: get the 8th map up on Mapbox tilesets
       <div class="accordion-item">
         <h2 class="accordion-header" id="headingEight">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight"
@@ -207,13 +105,57 @@
 
     -->
 
+  </div>
+
+  <div class="modal" id="infoModal" tabindex="-1">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">BC Old Growth Technical Advisory Panel Mapping</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <p>
+            On November 2nd, the BC government <a href="https://news.gov.bc.ca/releases/2021FLNRO0068-002088">announced
+              it's intent</a>
+            to pursue "priority deferral" of 2.6 million hectares of old growth forest.
+            This announcement was coupled with the release of the Old Growth Technical Advisory Panel's
+            <a
+              href="https://www2.gov.bc.ca/assets/gov/farming-natural-resources-and-industry/forestry/stewardship/old-growth-forests/summary_for_g2g_package.pdf">report
+              on priority deferrals</a>
+            and <a
+              href="https://www2.gov.bc.ca/gov/content/industry/forestry/managing-our-forest-resources/old-growth-forests/old-growth-maps">associated
+              maps</a>,
+            including the latest inventory data for old and rare ecosystems in BC.
+          </p>
+          <p>
+            The release included map images that are not high enough resolution to use at any sort of meaningful scale.
+            It
+            also
+            included geospatial data; those data were used to make these maps. The text describing each map is from
+            the government's
+            "<a
+              href="https://www.for.gov.bc.ca/ftp/HTS/external/!publish/OldGrowthStrategicReview/Recommendation6/TechnicalAdvisoryPanel/Spatial_Data/Brief%20Description%20Old%20Growth%20Technical%20Advisory%20Panel%20Maps%20and%20Spatial%20Data.Maps1-8.Nov02.pdf">Brief
+              Overview of Spatial Data.</a>"
+          </p>
+          <hr />
+          This map interface was created and is <a href="https://github.com/ngottlieb/bc-bigtree-registry">maintained by
+            Nick Gottlieb</a>, author of the <a href="https://ngottlieb.github.io/sacredheadwaters/">Sacred
+            Headwaters</a>
+          newsletter.
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        </div>
+      </div>
     </div>
   </div>
 
-  <script src="main.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.min.js"
     integrity="sha384-QJHtvGhmr9XOIpI6YVutG+2QOK9T+ZnN4kzFN1RtK3zEFEIsxhlmWl5/YESvpZ13"
     crossorigin="anonymous"></script>
+  <script src="main.js"></script>
+
 
 </body>
 
