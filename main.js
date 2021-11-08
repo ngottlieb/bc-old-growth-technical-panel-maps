@@ -2,7 +2,7 @@
 const modal = new bootstrap.Modal(document.getElementById('infoModal'));
 modal.show();
 
-mapboxgl.accessToken = 'pk.eyJ1IjoibmdvdHRsaWViIiwiYSI6ImNrdm9vNGh3ODB3ZTkybm1vdHFmajVsNXIifQ.O3HhHIdFv0L_5FreT4GLjA';
+mapboxgl.accessToken = 'sk.eyJ1IjoibmdvdHRsaWViIiwiYSI6ImNrdnEzb2FoMjJrbm0ydm10emZnMXplNGoifQ.1iGdTmu1W08BUGW0FPld5g';
 
 const map = new mapboxgl.Map({
   container: 'map', // container ID
