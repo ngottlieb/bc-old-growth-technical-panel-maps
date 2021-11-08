@@ -100,7 +100,7 @@ function switchToLayer(layerName) {
 
 function updateZoomWarning() {
   const currZoom = map.getZoom();
-  const minZoom = activeLayer.minzoom;
+  const minZoom = activeLayer.minZoom;
   const zoomHelpText = document.getElementById('zoomHelpText');
 
   if (currZoom < minZoom) {
