@@ -23,6 +23,16 @@ document.getElementById('btnSatellite').addEventListener('click', () => {
   map.setStyle("mapbox://styles/mapbox/satellite-v9");
 });
 
+// set up overlay caret to flip when main area is hidden (on small screens)
+document.getElementById('overlayCollapse').addEventListener('hide.bs.collapse', () => {
+  document.getElementById('downCaret').style = "";
+  document.getElementById('upCaret').style = "display: none;";
+});
+
+document.getElementById('overlayCollapse').addEventListener('show.bs.collapse', () => {
+  document.getElementById('downCaret').style = "display: none;";
+  document.getElementById('upCaret').style = "";
+});
 
 map.on('load', async () => {
   layerDefinitions = await fetch("./layerDefinitions.json").then(response => response.json());
@@ -118,7 +128,7 @@ function renderLayers() {
       // based on the feature found.
       popup.setLngLat(coordinates).setHTML(description).addTo(map);
     });
-        
+
     map.on('mouseleave', layer.name, () => {
       map.getCanvas().style.cursor = '';
       popup.remove();

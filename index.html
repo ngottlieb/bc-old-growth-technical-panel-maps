@@ -10,7 +10,6 @@
   <script src='https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.js'></script>
   <link href='https://api.mapbox.com/mapbox-gl-js/v2.5.1/mapbox-gl.css' rel='stylesheet' />
 
-
   <title>BC Old Growth Technical Panel Mapping (Fall 2021)</title>
 
   <style>
@@ -23,12 +22,20 @@
 
     .map-overlay {
       position: absolute;
-      width: 200px;
-      top: 10px;
-      right: 10px;
-      width: 25rem;
+      width: 100%;
+      top: 0;
+      left: 0;
+    }
 
-      padding: 10px;
+    @media (min-width: 768px) {
+      .map-overlay {
+        position: absolute;
+        width: 200px;
+        top: 10px;
+        right: 10px;
+        left: unset;
+        width: 25rem;
+      }
     }
 
     .map-overlay-inner {
@@ -37,6 +44,15 @@
       border-radius: 3px;
       padding: 10px;
     }
+
+    #overlayCollapseToggle {
+      background: white;
+      width: 10rem;
+      cursor: pointer;
+      text-align: center;
+      display: block;
+      border-radius: 0 0 3px 3px;
+    }
   </style>
 </head>
 
@@ -44,7 +60,7 @@
 
   <div id='map' style='width: 100%; height: 100%;'></div>
   <div class="map-overlay">
-    <div class="map-overlay-inner card">
+    <div class="map-overlay-inner card collapse show" id="overlayCollapse">
       <fieldset class="mb-3">
         <label for="map" class="form-label">Currently showing:</label>
         <select name="map" class="form-select" id="mapSelector" aria-label="Select which map to display">
@@ -93,29 +109,21 @@
       <button class="btn btn-primary btn-small info" data-bs-toggle="modal" data-bs-target="#infoModal">About this
         map</button>
     </div>
-    <!-- TODO: get the 8th map up on Mapbox tilesets
-      <div class="accordion-item">
-        <h2 class="accordion-header" id="headingEight">
-          <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseEight"
-            aria-expanded="true" aria-controls="collapseEight">
-            Map 7 - Recruitment Forest
-          </button>
-        </h2>
-        <div class="accordion-collapse collapse" id="collapseEight" aria-labelledby="headingEight"
-          data-bs-parent="#accordionMapData" data-layer-name="map-8-old-growth-tree-size">
-          <div class="accordion-body">
-            <p>Old Growth Forest represents relative old growth tree size within a BEC subzone/variant. The area of
-              Old Growth was divided into five size classes, based on stand tree height and diameter, within each BEC
-              subzone/variant. The size range within a BEC subzone/variant was based on the 1st and 99th percentiles
-              of old growth tree sizes within a BEC subzone/variant. The subsequent tree-size range within a BEC
-              subzone/variant was divided in five equal classes
-            </p>
-          </div>
-        </div>
-      </div>
-
-    -->
-
+    <div class="d-flex justify-content-center d-md-none">
+      <button id="overlayCollapseToggle" data-bs-toggle="collapse" data-bs-target="#overlayCollapse" role="button"
+        aria-expanded="true" aria-controls="overlayCollapse" class="btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" class="bi bi-caret-down-fill" id="downCaret"
+          viewBox="0 0 16 16" style="display: none;">
+          <path
+            d="M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z" />
+        </svg>
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" id="upCaret"
+          class="bi bi-caret-up-fill" viewBox="0 0 16 16">
+          <path
+            d="m7.247 4.86-4.796 5.481c-.566.647-.106 1.659.753 1.659h9.592a1 1 0 0 0 .753-1.659l-4.796-5.48a1 1 0 0 0-1.506 0z" />
+        </svg>
+      </button>
+    </div>
   </div>
 
   <div class="modal" id="infoModal" tabindex="-1">
