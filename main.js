@@ -2,11 +2,11 @@
 const modal = new bootstrap.Modal(document.getElementById('infoModal'));
 modal.show();
 
-mapboxgl.accessToken = 'sk.eyJ1IjoibmdvdHRsaWViIiwiYSI6ImNrdnEzb2FoMjJrbm0ydm10emZnMXplNGoifQ.1iGdTmu1W08BUGW0FPld5g';
+mapboxgl.accessToken = 'pk.eyJ1IjoibmdvdHRsaWViIiwiYSI6ImNrdm9vNGh3ODB3ZTkybm1vdHFmajVsNXIifQ.O3HhHIdFv0L_5FreT4GLjA';
 
 const map = new mapboxgl.Map({
   container: 'map', // container ID
-  style: 'mapbox://styles/mapbox/outdoors-v11', // style URL
+  style: 'mapbox://styles/ngottlieb/ckvon6g8z3zkn14nlih101iiv', // style URL
   center: [-125.701, 54.916], // starting position [lng, lat]
   zoom: 7 // starting zoom
 });
@@ -17,10 +17,10 @@ let popup;
 
 // set up basemap toggler
 document.getElementById('btnTopo').addEventListener('click', () => {
-  map.setStyle("mapbox://styles/mapbox/outdoors-v11");
+  map.setStyle("mapbox://styles/ngottlieb/ckvon6g8z3zkn14nlih101iiv");
 });
 document.getElementById('btnSatellite').addEventListener('click', () => {
-  map.setStyle("mapbox://styles/mapbox/satellite-v9");
+  map.setStyle("mapbox://styles/ngottlieb/ckvr2twtx00dc14tbqmwjrgt0");
 });
 
 // set up overlay caret to flip when main area is hidden (on small screens)
@@ -55,8 +55,27 @@ map.on('load', async () => {
     switchToLayer(this.value);
   });
 
-  map.on('style.load', renderLayers);
-  renderLayers();
+  layerDefinitions.forEach(layer => {
+    map.on('mouseenter', layer.name, (e) => {
+      // Change the cursor style as a UI indicator.
+      map.getCanvas().style.cursor = 'pointer';
+  
+      // Copy coordinates array.
+      const coordinates = e.lngLat;
+      const description = `<strong>${layer.layerLabel}</strong><br/> ${e.features[0].properties.label}`;
+      // Populate the popup and set its coordinates
+      // based on the feature found.
+      popup.setLngLat(coordinates).setHTML(description).addTo(map);
+    });
+  
+    map.on('mouseleave', layer.name, () => {
+      map.getCanvas().style.cursor = '';
+      popup.remove();
+    });  
+  });
+
+  map.on('style.load', initializeLayers);
+  initializeLayers();
 });
 
 
@@ -74,17 +93,14 @@ function switchToLayer(layerName) {
   mapDescription.innerHTML = newDescription;
 
   // set visibility appropriately
-  layerDefinitions.forEach(l => {
-    map.setLayoutProperty(l.name, 'visibility', activeLayer === l ? 'visible' : 'none');
-  });
+  filterLayers();
 
   updateZoomWarning();
 }
 
 function updateZoomWarning() {
   const currZoom = map.getZoom();
-  const activeSource = map.getSource(activeLayer.name);
-  const minZoom = activeSource.minzoom;
+  const minZoom = activeLayer.minzoom;
   const zoomHelpText = document.getElementById('zoomHelpText');
 
   if (currZoom < minZoom) {
@@ -94,44 +110,41 @@ function updateZoomWarning() {
   }
 }
 
-function renderLayers() {
+function initializeLayers() {
+  styleLayers();
+  filterLayers();
+}
+
+function filterLayers() {
   // add data layers
   layerDefinitions.forEach((layer, index) => {
-    map.addSource(layer.name, {
-      type: 'vector',
-      url: `mapbox://${layer.tilesetId}`
-    });
-
-    map.addLayer({
-      id: layer.name,
-      type: 'fill',
-      source: layer.name,
-      'source-layer': layer.sourceLayer,
-      paint: {
-        'fill-color': layer.layerColor,
-        'fill-opacity': 0.6
-      },
-      layout: {
-        visibility: layer === activeLayer ? 'visible' : 'none'
-      }
-    });
-
-    map.on('mouseenter', layer.name, (e) => {
-      // Change the cursor style as a UI indicator.
-      map.getCanvas().style.cursor = 'pointer';
-  
-      // Copy coordinates array.
-      const coordinates = e.lngLat;
-      const description = `<strong>${layer.layerLabel}</strong><br/> ${e.features[0].properties.label}`;
-        
-      // Populate the popup and set its coordinates
-      // based on the feature found.
-      popup.setLngLat(coordinates).setHTML(description).addTo(map);
-    });
-
-    map.on('mouseleave', layer.name, () => {
-      map.getCanvas().style.cursor = '';
-      popup.remove();
-    });
+    map.setLayoutProperty(layer.name, 'visibility', layer === activeLayer ? 'visible' : 'none'); 
   });
 }
+
+function styleLayers() {
+  layerDefinitions.forEach((layer) => {
+    map.setPaintProperty(layer.name, 'fill-color', mapboxColorCondition);
+    map.setPaintProperty(layer.name, 'fill-opacity', 0.6);
+  });
+}
+
+const colorPalette = [
+  "#FF99C8",
+  "#BA6E6E",
+  "#A1674A",
+  "#A63A50",
+  "#767522",
+  "#F4B942",
+  "#C6C983",
+  "#97D8C4",
+  "#6B9AC4",
+  "#4059AD"
+];
+
+const mapboxColorCondition = ['match', ['get', 'value']];
+colorPalette.forEach((c,index) => {
+  mapboxColorCondition.push(index + 1);
+  mapboxColorCondition.push(c);
+});
+mapboxColorCondition.push(colorPalette[0]);
