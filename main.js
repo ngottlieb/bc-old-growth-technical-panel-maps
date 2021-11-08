@@ -93,7 +93,7 @@ function switchToLayer(layerName) {
   mapDescription.innerHTML = newDescription;
 
   // set visibility appropriately
-  filterLayers();
+  initializeLayers();
 
   updateZoomWarning();
 }
