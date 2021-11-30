@@ -4,46 +4,75 @@
     "layerLabel": "Map 1: Priority Deferrals",
     "shortDescription": "This map shows an overall picture of the panel’s priority recommendations for harvest deferral.",
     "description": "It is a combination of: \n<ul><li>Prioritized old growth with large trees (Map 3)</li><li>Areas mapped as ancient forest (Map 4)</li><li>Remnant old ecosystems (Map 5)</li></ul>",
-    "minZoom": 7
+    "minZoom": 7,
+    "legend": {
+      "1": "Prioritized Big-treed Old Growth",
+      "2": "Ancient forest",
+      "3": "Remnant Old Ecosystems"
+    }
   },
   {
     "name": "map-2-big-tree-og",
     "layerLabel": "Map 2: Big-treed Old Growth",
     "shortDescription": "This map shows the remaining old forest with the largest trees in each ecosystem.",
     "description": "<p>Within each BEC subzone/variant, select stands with the largest trees until area selected reaches the greater of either 10% of the total FALB area or 30% of the area of old forest that is naturally expected.</p><p>Stands comprised of old forest were prioritized. If a BEC subzone/variant did not contain enough old forest to meet the 10%/30% area goal, then stands with the largest trees in the “older mature”2 were selected.</p>",
-    "minZoom": 7
+    "minZoom": 7,
+    "legend": {
+      "3": "Older mature forest",
+      "4": "Old growth"
+    }
   },
   {
     "name": "map-3-priority-big-tree-og",
     "layerLabel": "Map 3: Prioritised Big-treed Old Growth",
     "shortDescription": "This map is a subset of Map 2, showing the highest priority big-treed old growth.",
     "description": "<p>Targets for each ecosystem were varied based on finer-scaled ecological risk. Whereas Map 2 shows the biggest 10% or 30% of expected amount of old for all ecosystems, this map shows the biggest 3 or 5% forests in ecosystems at lower risk, and 7%, 10% or 30% of expected for in ecosystems at higher risk.</p>",
-    "minZoom": 7
+    "minZoom": 7,
+    "legend": {
+      "3": "Older mature forest",
+      "4": "Old growth"
+    }
   },
   {
     "name": "map-4-ancient-forest",
     "layerLabel": "Map 4: Ancient Forest",
     "shortDescription": "This map shows the forests described in provincial forest inventory data as ancient.",
     "description": "<p>Ancient forests were defined using Structural Stage 7b (“very old”) from Land Management Handbook 25 (Province of British Columbia 2010), where ancient is >400 in NDT 1, 2, 4 and >250 in NDT3.</p>",
-    "minZoom": 5
+    "minZoom": 5,
+    "legend": {
+      "1": "Ancient forest",
+      "2": "Ancient forest"
+    }
   },
   {
     "name": "map-5-remnant-ecosystems",
     "layerLabel": "Map 5: Remnant Ecosystems",
     "shortDescription": "This map shows old forest remaining in ecosystems where less than 10% of the total productive forested area is mapped as old today.",
     "description": "<p>Remnant forest maps include all polygons that were mapped as old in VRI and were within a BEC subzone/variant or a BEC subzone/variant within a Landscape Unit where old forests comprised < 10% of the productive forest area.3 </p>",
-    "minZoom": 6
+    "minZoom": 6,
+    "legend": {
+      "1": "Rare within a BEC variant",
+      "2": "Rare within a landscape unit within a BEC variant"
+    }
   },
   {
     "name": "map-6-intact-watersheds",
     "layerLabel": "Map 6: Intact Watersheds",
     "description": "<p>The Intact Watersheds map show the watersheds where >70% of the forest has not been disturbed by forest harvesting or roads. Watersheds were further stratified into either >70%, >80%, or >90% intactness.</p>",
-    "minZoom": 6
+    "minZoom": 6,
+    "legend": {
+      "8": "70-80% intact",
+      "9": "80-90% intact",
+      "10": ">90% intact"
+    }
   },
   {
     "name": "map-7-recruitment-forest",
     "layerLabel": "Map 7: Recruitment Forest",
     "description": "<p>Recruitment Forest represent supplemental areas to “Map 1: Old Growth with Large Trees”. If a BEC subzone/variant did not contain enough area of old or “older mature” forest to meet the 10%/30% area goal, then stands with the largest trees in younger forest were selected as potential “recruitment” areas.</p>",
-    "minZoom": 0
+    "minZoom": 0,
+    "legend": {
+      "1": "Recruitment forest"
+    }
   }
 ]

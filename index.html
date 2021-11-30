@@ -61,6 +61,21 @@
       display: block;
       border-radius: 0 0 3px 3px;
     }
+
+    #mapLegend {
+      color: #555;
+      padding: 6px 8px;
+      font: 14px/16px Arial, Helvetica, sans-serif;
+    }
+
+    #mapLegend span {
+      border-radius: 50%;
+      opacity: 0.6;
+      display: inline-block;
+      height: 18px;
+      margin-right: 5px;
+      width: 18px;
+    }
   </style>
 </head>
 
@@ -112,6 +127,14 @@
           <li>Areas mapped as ancient forest (Map 4)</li>
           <li>Remnant old ecosystems (Map 5)</li>
         </ul>
+      </div>
+      <div id="mapLegend" class="d-flex flex-column">
+        <div class="d-flex justify-content-center mb-2"><span style="background-color: #BA6E6E"></span>Prioritized
+          Big-treed Old Growth</div>
+        <div class="d-flex justify-content-center mb-2"><span style="background-color: #A1674A"></span>Ancient forest
+        </div>
+        <div class="d-flex justify-content-center mb-2"><span style="background-color: #A63A50"></span>Remnant Old
+          Ecosystems</div>
       </div>
       <hr />
       <button class="btn btn-primary btn-small info" data-bs-toggle="modal" data-bs-target="#infoModal">About this

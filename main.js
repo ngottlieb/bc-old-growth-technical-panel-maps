@@ -92,6 +92,9 @@ function switchToLayer(layerName) {
 
   mapDescription.innerHTML = newDescription;
 
+  const mapLegend = document.getElementById("mapLegend");
+  mapLegend.innerHTML = getLegendHTML(activeLayer);
+
   // set visibility appropriately
   initializeLayers();
 
@@ -127,6 +130,17 @@ function styleLayers() {
     map.setPaintProperty(layer.name, 'fill-color', mapboxColorCondition);
     map.setPaintProperty(layer.name, 'fill-opacity', 0.6);
   });
+}
+
+function getLegendHTML(layer) {
+  let legendHTML = "";
+  Object.keys(layer.legend).forEach((item) => {
+    legendHTML += '<div class="d-flex justify-content-center mb-2">';
+    legendHTML += `<span style="background-color: ${colorPalette[parseInt(item)-1]}"></span>`;
+    legendHTML += layer.legend[item];
+    legendHTML += "</div>";
+  });
+  return legendHTML;
 }
 
 const colorPalette = [
